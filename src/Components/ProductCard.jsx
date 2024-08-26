@@ -51,7 +51,9 @@ const ProductCard = (props) => {
                     </div>
                     <div id='description' className='h-[25%] w-[95%] m-auto'>
                         {props.description}
+                        {props.published}
                     </div>
+                    
                     <div id='addtocart' className='text-white bg-[#24285b] h-[12%] w-[95%] m-auto cursor-pointer'>
                         <div className='flex text-base font-medium gap-4 justify-center' onClick={handleaddToCart}>
                             <div className='pt-[6px]'>
