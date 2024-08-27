@@ -51,7 +51,7 @@ const ProductCard = (props) => {
                     </div>
                     <div id='description' className='h-[25%] w-[95%] m-auto'>
                         {props.description}
-                        {props.published}
+                        {props.date}
                     </div>
                     
                     <div id='addtocart' className='text-white bg-[#24285b] h-[12%] w-[95%] m-auto cursor-pointer'>

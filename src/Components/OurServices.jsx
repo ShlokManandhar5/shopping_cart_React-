@@ -4,51 +4,31 @@ import data from '../Database/data'
 
 const OurServices = () => {
   const [selectedCompany, setSelectedCompany] = useState('ALL')
-  const [sortOrder, setSortOrder] = useState('highest')
-  const [products, setProducts] = useState(data)
+  const [sortOrder, setSortOrder] = useState('higest')
 
-  // Helper function to parse date strings
-  const parseDate = (dateString) => {
-    console.log("Parsing date:", dateString); // Log the date string
-    // Try parsing with built-in Date.parse first
-    const parsedDate = Date.parse(dateString);
-    if (!isNaN(parsedDate)) {
-      return new Date(parsedDate);
-    }
-    // If that fails, try manual parsing
-    const parts = dateString.split('/');
-    if (parts.length === 3) {
-      const [month, day, year] = parts.map(Number);
-      // Assume 20xx for two-digit years
-      const fullYear = year < 100 ? 2000 + year : year;
-      return new Date(fullYear, month - 1, day);
-    }
-    console.error("Failed to parse date:", dateString);
-    return new Date(0); // Return a default date if parsing fails
-  }
+  const [products, setProducts] = useState([])
+  const [dateList, setDateList] =useState('newest')
 
   useEffect(() => {
-    let filteredProducts = selectedCompany === 'ALL'
-      ? [...data]
+    setProducts(data)
+    
+    // for Dates
+    
+
+    // for company
+    let filteredProducts = selectedCompany === 'ALL' 
+      ? [...data] 
       : data.filter(product => product.company === selectedCompany)
 
-    filteredProducts.sort((a, b) => {
-      if (sortOrder === 'newest' || sortOrder === 'oldest') {
-        const dateA = parseDate(a.published);
-        const dateB = parseDate(b.published);
-        console.log("Comparing dates:", a.published, b.published, dateA, dateB);
-        return sortOrder === 'newest'
-          ? dateB.getTime() - dateA.getTime()
-          : dateA.getTime() - dateB.getTime();
-      } else {
-        const priceA = parseFloat(a.price.replace(/[^\d.]/g, ''));
-        const priceB = parseFloat(b.price.replace(/[^\d.]/g, ''));
-        console.log("Comparing prices:", a.price, b.price, priceA, priceB);
-        return sortOrder === 'lowest'
-          ? priceA - priceB
-          : priceB - priceA;
-      }
-    })
+    // for Higest to lowest
+      filteredProducts.sort((a, b) => {
+        return sortOrder === 'lowest' 
+          ? a.price.localeCompare(b.price, undefined, { numeric: true })
+          : b.price.localeCompare(a.price, undefined, { numeric: true });
+      });
+    
+
+
 
     setProducts(filteredProducts)
   }, [selectedCompany, sortOrder])
@@ -61,6 +41,8 @@ const OurServices = () => {
     setSortOrder(e.target.value)
   }
 
+
+
   return (
     <div>
       {/* Company filter buttons */}
@@ -69,8 +51,7 @@ const OurServices = () => {
           <button
             key={company}
             className={`border px-5 py-1 font-semibold rounded-2xl ${selectedCompany === company ? 'bg-[#24285b] text-white' : 'bg-white text-[#24285b]'}`}
-            onClick={() => handleCompanyClick(company)}
-          >
+            onClick={() => handleCompanyClick(company)}>
             {company}
           </button>
         ))}
@@ -79,14 +60,21 @@ const OurServices = () => {
       {/* Sorting dropdown */}
       <div className='w-[65%] m-auto mt-5'>
         <select
-          className='border px-5 py-1 font-semibold rounded-2xl text-[#24285b]'
+          className='border px-5 py-1 font-semibold rounded-2xl text-[#24285b] mr-5'
           value={sortOrder}
           onChange={handleSortChange}
         >
           <option value="highest">Highest Price</option>
           <option value="lowest">Lowest Price</option>
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
+        </select>
+        
+        <select
+          className='border px-5 py-1 font-semibold rounded-2xl text-[#24285b] '
+          // value={sortOrder}
+          // onChange={handleSortChange}
+        >
+          <option value="highest">Newest</option>
+          <option value="lowest">Oldest</option> 
         </select>
       </div>
 
@@ -100,7 +88,7 @@ const OurServices = () => {
             price={product.price}
             description={product.description}
             img={product.img}
-            published={product.published}
+            date={product.date}
           />
         ))}
       </div>
