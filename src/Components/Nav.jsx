@@ -12,10 +12,10 @@ function Navbar() {
             <div className='md:static absolute md:min-h-fit min-h-[20vh] top-[-450px] left-0 md:w-auto w-full flex items-center sm:px-11 px-8 py-3 bg-[#f5f6f8]'>
             <ul className="flex md:flex-row flex-col items-start md:gap-[4vw] gap-8 lg:text-base text-sm ">
                 <li>
-                    <Link to="/" className='text-gray-500 hover:text-black' >Home</Link>
+                    <Link to="/shoes" className='text-gray-500 hover:text-black' >Home</Link>
                 </li>
                 <li>
-                    <a href=""className='text-gray-500 hover:text-black'>Featurs</a>
+                    <Link to="/feature" className='text-gray-500 hover:text-black'>Featurs</Link>
                 </li>
                 <li>
                     <Link to="/shoes"className='text-gray-500 hover:text-black'>Shoes</Link>

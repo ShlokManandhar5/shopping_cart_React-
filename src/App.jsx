@@ -5,6 +5,7 @@ import OurServices from './Components/OurServices'
 import FillForm from './Components/FillForm'
 import {BrowserRouter, Routes ,Route} from'react-router-dom'
 import ShopCart from './Components/ShopCart'
+import OurServicesPrac from './Components/OurServicesPrac'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Navbar/>}/>
           <Route path='/shoes' element ={<><Navbar/><OurServices/></>}/>
+          <Route path='/feature' element ={<><Navbar/><OurServicesPrac/></>}/>
           <Route path='/contact' element= {<><Navbar/><FillForm/></>}/>
           <Route path='/shopcart' element={<><Navbar/><ShopCart/></>}/>
           </Routes>

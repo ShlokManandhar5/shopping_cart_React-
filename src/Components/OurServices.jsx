@@ -5,43 +5,31 @@ import data from '../Database/data'
 const OurServices = () => {
   const [selectedCompany, setSelectedCompany] = useState('ALL')
   const [sortOrder, setSortOrder] = useState('higest')
-
   const [products, setProducts] = useState([])
-  const [dateList, setDateList] =useState('newest')
 
   useEffect(() => {
     setProducts(data)
-    
-    // for Dates
-    
-
     // for company
-    let filteredProducts = selectedCompany === 'ALL' 
-      ? [...data] 
+    let filteredProducts = selectedCompany === 'ALL'
+      ? [...data]
       : data.filter(product => product.company === selectedCompany)
 
     // for Higest to lowest
-      filteredProducts.sort((a, b) => {
-        return sortOrder === 'lowest' 
-          ? a.price.localeCompare(b.price, undefined, { numeric: true })
-          : b.price.localeCompare(a.price, undefined, { numeric: true });
-      });
-    
-
-
-
+    filteredProducts.sort((a, b) => {
+      return sortOrder === 'lowest'
+        ? a.price.localeCompare(b.price, undefined, { numeric: true })
+        : b.price.localeCompare(a.price, undefined, { numeric: true });
+    });
     setProducts(filteredProducts)
   }, [selectedCompany, sortOrder])
 
   const handleCompanyClick = (company) => {
     setSelectedCompany(company)
-  }
+  };
 
   const handleSortChange = (e) => {
     setSortOrder(e.target.value)
-  }
-
-
+  };
 
   return (
     <div>
@@ -67,15 +55,7 @@ const OurServices = () => {
           <option value="highest">Highest Price</option>
           <option value="lowest">Lowest Price</option>
         </select>
-        
-        <select
-          className='border px-5 py-1 font-semibold rounded-2xl text-[#24285b] '
-          // value={sortOrder}
-          // onChange={handleSortChange}
-        >
-          <option value="highest">Newest</option>
-          <option value="lowest">Oldest</option> 
-        </select>
+
       </div>
 
       {/* Product list */}
