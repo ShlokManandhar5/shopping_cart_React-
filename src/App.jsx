@@ -14,7 +14,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Navbar/>}/>
+          <Route path='/' element={<><Navbar/><OurServices/></>}/>
           <Route path='/shoes' element ={<><Navbar/><OurServices/></>}/>
           <Route path='/feature' element ={<><Navbar/><OurServicesPrac/></>}/>
           <Route path='/contact' element= {<><Navbar/><FillForm/></>}/>
